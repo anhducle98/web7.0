@@ -13,7 +13,7 @@ class ShipController {
                 this.reloadCount += 1;
                 if (this.reloadCount >= this.reloadTime) {
                     this.reloadCount = 0;
-                    let foo = new Bullet(ship.sprite.x, ship.sprite.y, ship.bulletName);
+                    let foo = new BulletController(ship.sprite.x, ship.sprite.y, ship.bulletName);
                     foo.sprite.y -= foo.sprite.height;
                     foo.sprite.x += (ship.sprite.width - foo.sprite.width) / 2;
                     this.bullets.push(foo);
