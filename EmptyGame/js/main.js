@@ -1,5 +1,8 @@
 var Nakama = {};
-Nakama.configs = {};
+Nakama.configs = {
+  PLAYER_SPEED: 10,
+  BACKGROUND_SPEED: 3
+};
 
 window.onload = function(){
   Nakama.game = new Phaser.Game(640,960,Phaser.AUTO,'',
@@ -38,32 +41,31 @@ var create = function(){
   lower_crop = new Phaser.Rectangle(0, 0, Nakama.game.width, Nakama.game.height);
   Nakama.upper_background.crop(upper_crop);
   Nakama.lower_background.crop(lower_crop);
-  Nakama.player = Nakama.game.add.sprite(300, 400, "assets", "Spaceship1-Player.png");
-  Nakama.player.velocity = 10;
+
+  Nakama.player = new ShipController(300, 400, "Spaceship1-Player.png", "BulletType1Upgraded.png", {
+    UP: Phaser.Keyboard.UP,
+    DOWN: Phaser.Keyboard.DOWN,
+    LEFT: Phaser.Keyboard.LEFT,
+    RIGHT: Phaser.Keyboard.RIGHT,
+    FIRE: Phaser.Keyboard.CONTROL,
+  });
+  Nakama.partner = new ShipController(350, 400, "Spaceship1-Partner.png", "BulletType2Upgraded.png", {
+    UP: Phaser.Keyboard.W,
+    DOWN: Phaser.Keyboard.S,
+    LEFT: Phaser.Keyboard.A,
+    RIGHT: Phaser.Keyboard.D,
+    FIRE: Phaser.Keyboard.SPACEBAR
+  });
 }
 
 var get_high = function() {
-  if (Nakama.keyboard.isDown(Phaser.Keyboard.UP)) {
-    Nakama.player.y -= Nakama.player.velocity;
-  }
-  if (Nakama.keyboard.isDown(Phaser.Keyboard.DOWN)) {
-    Nakama.player.y += Nakama.player.velocity;
-  }
-  if (Nakama.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-    Nakama.player.x -= Nakama.player.velocity;
-  }
-  if (Nakama.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-    Nakama.player.x += Nakama.player.velocity;
-  }
-  Nakama.player.x = Math.max(Nakama.player.x, 0);
-  Nakama.player.y = Math.max(Nakama.player.y, 0);
-  Nakama.player.x = Math.min(Nakama.game.width - Nakama.player.width, Nakama.player.x);
-  Nakama.player.y = Math.min(Nakama.game.height - Nakama.player.height, Nakama.player.y);
+ Nakama.player.update();
+ Nakama.partner.update();
 }
 
 var shift = 0;
 var background_dance = function() {
-  shift += 3;
+  shift += Nakama.configs.BACKGROUND_SPEED;
   if (shift >= Nakama.game.height) {
     shift -= Nakama.game.height
   }
