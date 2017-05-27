@@ -9,19 +9,7 @@ class ShipController {
     }
 
     fire() {
-        if (this.timeSinceLastFire >= this.configs.COOLDOWN) {
-            for (let i = 0; i < this.configs.BULLET_COUNT; ++i) {
-                let diff = Number(i - (this.configs.BULLET_COUNT - 1) / 2.0);
-                let angle = diff / this.configs.BULLET_COUNT;
-                new BulletController(this.sprite.x, this.sprite.y, this.bulletName, {
-                    deltaY: this.configs.BULLET_SPEED * Math.cos(angle),
-                    deltaX: this.configs.BULLET_SPEED * Math.sin(angle),
-                    rotation: angle / 3.14 * 180
-                });
-            }
-            
-            this.timeSinceLastFire = 0;
-        }
+        
     }
 
     update() {

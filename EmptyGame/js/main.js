@@ -1,7 +1,5 @@
 var Nakama = {};
 Nakama.configs = {
-  PLAYER_SPEED: 1000,
-  BULLET_SPEED: 2000,
   BACKGROUND_SPEED: 3
 };
 
@@ -46,24 +44,22 @@ var create = function(){
   Nakama.bulletGroup = Nakama.game.add.physicsGroup();
   Nakama.playerGroup = Nakama.game.add.physicsGroup();
 
-  Nakama.player = new ShipController(250, 600, "Spaceship1-Player.png", "BulletType1Upgraded.png", {
+  Nakama.player = new ShipType1Controller(250, 600, {
     UP: Phaser.Keyboard.UP,
     DOWN: Phaser.Keyboard.DOWN,
     LEFT: Phaser.Keyboard.LEFT,
     RIGHT: Phaser.Keyboard.RIGHT,
     FIRE: Phaser.Keyboard.CONTROL,
     BULLET_SPEED: Nakama.configs.BULLET_SPEED,
-    COOLDOWN: 0.07,
     BULLET_COUNT: 5
   });
-  Nakama.partner = new ShipController(350, 600, "Spaceship1-Partner.png", "BulletType2Upgraded.png", {
+  Nakama.partner = new ShipType1Controller(350, 600, {
     UP: Phaser.Keyboard.W,
     DOWN: Phaser.Keyboard.S,
     LEFT: Phaser.Keyboard.A,
     RIGHT: Phaser.Keyboard.D,
     FIRE: Phaser.Keyboard.SPACEBAR,
     BULLET_SPEED: Nakama.configs.BULLET_SPEED,
-    COOLDOWN: 0.07,
     BULLET_COUNT: 5
   });
 }
